@@ -14,5 +14,5 @@
 ![Schematic](touchless-doorbell_bb.jpg)
 
 ## Dependencies
-1. [Adafruit SleepyDog](https://github.com/adafruit/Adafruit_SleepyDog) library for putting the Arduino Nano into low power mode
-2. [NewPing](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home) library for measuring distance with ultrasonic sensor
+* [Adafruit SleepyDog](https://github.com/adafruit/Adafruit_SleepyDog) library for putting the Arduino Nano into low power mode
+* [NewPing](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home) library for measuring distance with ultrasonic sensor
