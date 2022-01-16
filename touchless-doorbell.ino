@@ -1,10 +1,14 @@
-// ---------------------------------------------------------------- //
-// Arduino Ultrasoninc Sensor HC-SR04
-// Re-writed by Arbi Abdul Jabbaar
-// Using Arduino IDE 1.8.7
-// Using HC-SR04 Module
-// Tested on 17 September 2019
-// ---------------------------------------------------------------- //
+/*
+ * touchless-doorbell
+ * 
+ * Sounds buzzer when an object is detected within 15 cm of ultrasonic sensor.
+ * Power-saving measures in place for battery operation.
+ * 
+ * Created 2022-01-16
+ * By Jesung Park
+ * 
+ * Details can be found here https://github.com/jesung/touchless-doorbell
+ */
 
 
 #include <Adafruit_SleepyDog.h>
@@ -17,7 +21,6 @@
 #define MAX_DISTANCE 200
 
 // define variables
-//long duration; // variable for the duration of sound wave travel
 int distance = 42; // variable for the distance measurement
 int ring = 0;
 int count = 10;
@@ -32,12 +35,6 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-
-  digitalWrite(LED_BUILTIN, LOW);
-  
-  while(!Serial);
-  Serial.println("Ultrasonic Sensor HC-SR04 Test"); // print some text in Serial Monitor
-  Serial.println("with Arduino UNO R3");
 
 }
 void loop() {
@@ -65,12 +62,9 @@ void loop() {
   else {
     //go to sleep for 2 seconds
     Serial.println("going to sleep...");
-    //digitalWrite(LED_BUILTIN, LOW);
     delay(20);
     int sleepMS = Watchdog.sleep(2000);
     
-    //digitalWrite(LED_BUILTIN, HIGH); // Show we're awake again
-
     Serial.print("I'm awake now! I slept for ");
     Serial.print(sleepMS, DEC);
     Serial.println(" milliseconds.");
@@ -78,18 +72,7 @@ void loop() {
     delay(50);
   }
   
-  // Clears the trigPin condition
-  //digitalWrite(TRIGGER_PIN, LOW);
-  //delayMicroseconds(2);
-  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
-  //digitalWrite(TRIGGER_PIN, HIGH);
-  //delayMicroseconds(10);
-  //digitalWrite(TRIGGER_PIN, LOW);
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  //duration = pulseIn(ECHO_PIN, HIGH);
-  // Calculating the distance
-  //distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
-  distance = sonar.ping_cm();
+  distance = sonar.ping_cm();   // measure distance
   
   // Displays the distance on the Serial Monitor
   Serial.print("Distance: ");
