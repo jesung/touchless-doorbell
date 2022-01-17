@@ -1,14 +1,14 @@
 /*
- * touchless-doorbell
- * 
- * Sounds buzzer when an object is detected within 15 cm of ultrasonic sensor.
- * Power-saving measures in place for battery operation.
- * 
- * Created 2022-01-16
- * By Jesung Park
- * 
- * Details can be found here https://github.com/jesung/touchless-doorbell
- */
+   touchless-doorbell
+
+   Sounds buzzer when an object is detected within 15 cm of ultrasonic sensor.
+   Power-saving measures in place for battery operation.
+
+   Created 2022-01-16
+   By Jesung Park
+
+   Details can be found here https://github.com/jesung/touchless-doorbell
+*/
 
 
 #include <Adafruit_SleepyDog.h>
@@ -28,17 +28,18 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 void setup() {
   Serial.begin(9600); // // Serial Communication is starting with 9600 of baudrate speed
-  
+
   // board layout
   // GND D2 D3 5V
   pinMode(TRIGGER_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+  //pinMode(LED_BUILTIN, OUTPUT);
 
+  Serial.println("Initializing touchless doorbell...");
 }
 void loop() {
-  
+
   if (ring) {
     ring = 0;
     tone(BUZZER_PIN, 1250);
@@ -62,29 +63,31 @@ void loop() {
   else {
     //go to sleep for 2 seconds
     Serial.println("going to sleep...");
-    delay(20);
+    delay(50);
     int sleepMS = Watchdog.sleep(2000);
-    
+
     Serial.print("I'm awake now! I slept for ");
     Serial.print(sleepMS, DEC);
     Serial.println(" milliseconds.");
     Serial.println();
-    delay(50);
+    delay(200);
   }
-  
+
   distance = sonar.ping_cm();   // measure distance
-  
+
+  if (distance > 0 && distance < 15) {
+    ring = 1;
+  }
+  else if (distance == 0) {
+    distance = MAX_DISTANCE;
+  }
+  //  delay(50);
+  if (distance < 50) {
+    count = 10;
+  }
+
   // Displays the distance on the Serial Monitor
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
-  if (distance < 50) {
-    count = 10;
-  }
-  if (distance < 15) {
-    ring = 1;    
-  }
-  else {
-    delay(50);
-  }
 }
