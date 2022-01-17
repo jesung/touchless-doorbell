@@ -1,8 +1,7 @@
 # touchless-doorbell
 
 ## Project Description
-<p>In light of the new contactless world order, I wanted to build a touchless doorbell based on the Arduino Nano. Because I didn't have a plug nearby, I built in some power saving measures so that the doorbell can run on a battery.
-</p>
+In light of the new contactless world order, I wanted to build a touchless doorbell based on the Arduino Nano. Because I didn't have a plug nearby, I built in some power saving measures so that the doorbell can run on a battery. A more detailed write-up can be found on my [personal website](https://jesungpark.com/projects/touchless-doorbell.html).
 
 ## Components
 * Arduino Nano
